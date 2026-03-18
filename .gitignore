@@ -1,0 +1,187 @@
+# Compiled Java classes
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+*.nar
+target/
+out/
+
+# IDE specific files
+## Eclipse
+.project
+.classpath
+.settings/
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+
+## IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.idea_modules/
+atlassian-ide-plugin.xml
+
+## NetBeans
+nb-configuration.xml
+nbactions.xml
+nb-dist.xml
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+## VS Code
+.vscode/
+*.code-workspace
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Log files
+*.log
+logs/
+log/
+
+# Database files (for your file storage phase)
+*.db
+*.sqlite
+*.h2.db
+data/
+*.data
+*.store
+
+# Your application data files (phase 1 file storage)
+students.txt
+courses.txt
+enrollments.txt
+*.txt
+!README.md  # Don't ignore README
+
+# Test files
+test-output/
+*.test
+*.test-results
+surefire-reports/
+test-reports/
+
+# Maven specific (when you add pom.xml later)
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle specific (if you switch later)
+.gradle/
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Documentation
+/docs/_build/
+/docs/_site/
+/api-docs/
+
+# Environment files
+.env
+application-local.properties
+application-local.yml
+config/
+!config/application.properties  # Keep template config
+
+# Dependency directories
+lib/
+!lib/README.md
+
+# Backup files
+*~
+~$*
+
+# Project specific
+temp/
+tmp/
+*.tmp
+*.temp
+*.cache
+
+# Coverage reports
+*.ec
+htmlcov/
+.coverage
+.coverage.*
+.cache
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebooks (if you add any analysis)
+.ipynb_checkpoints
+*.ipynb
+
+# Virtual environment (if you add Python scripts later)
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Memory dumps
+*.hprof
+*.heap
+*.dump
+
+# Secrets and credentials
+*.key
+*.pem
+*.crt
+*.csr
+*.jks
+secrets.properties
+credentials.properties
+
+# Node modules (if you add web frontend later)
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+dist/
+build/
+
+# Docker (if you containerize later)
+*.pid
+docker-compose.override.yml
+.dockerignore
+Dockerfile
+!Dockerfile  # Keep if you create one
+docker-compose.yml
+!docker-compose.yml  # Keep if you create one
