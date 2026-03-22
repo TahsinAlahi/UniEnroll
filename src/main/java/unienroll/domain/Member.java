@@ -1,15 +1,24 @@
 package unienroll.domain;
 
 public class Member {
+    private static long counter = 100L;
+
+    //    TODO: Make it thread safe
+    private final String id;
     private String name;
     private final String email;
     private String password;
     private boolean isVerified = false;
 
     public Member(String email, String name, String password) {
+        this.id = "USR-" + counter++;
         this.email = email;
         setName(name);
         setPassword(password);
+    }
+
+    public String getId() {
+        return id;
     }
 
     //TODO: setup validation & format
