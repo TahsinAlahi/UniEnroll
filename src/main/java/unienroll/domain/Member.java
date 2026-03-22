@@ -10,7 +10,7 @@ public class Member {
     private String password;
     private boolean isVerified = false;
 
-    public Member(String email, String name, String password) {
+    public Member(String name, String email, String password) {
         this.id = "USR-" + counter++;
         this.email = email;
         setName(name);
