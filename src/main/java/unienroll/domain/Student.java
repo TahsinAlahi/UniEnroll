@@ -13,7 +13,7 @@ public class Student extends Member {
     }
 
     public List<String> getEnrolledCoursesId() {
-//        TODO: This is a read-only view of the enrolled courses
+    //      TODO: This is a read-only view of the enrolled courses
         return Collections.unmodifiableList(enrolledCoursesId);
     }
 
