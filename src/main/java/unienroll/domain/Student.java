@@ -8,7 +8,7 @@ public class Student extends Member {
     private final List<String> enrolledCoursesId;
 
     public Student(String name, String email, String password) {
-        super(name, email, password);
+        super(name, email, password,Roles.STUDENT);
         this.enrolledCoursesId = new ArrayList<>();
     }
 
