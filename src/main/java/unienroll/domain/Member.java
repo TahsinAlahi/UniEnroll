@@ -1,5 +1,6 @@
 package unienroll.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -21,16 +22,33 @@ public class Member {
     private boolean isVerified = false;
 
     public Member(
-            @JsonProperty("name") String name,
-            @JsonProperty("email") String email,
-            @JsonProperty("password") String password,
-            @JsonProperty("role") Roles role
+           String name,
+           String email,
+           String password,
+           Roles role
     ) {
         this.id = "USR-" + counter++;
         this.email = email;
         setName(name);
         setPassword(password);
         this.role = role;
+    }
+
+    @JsonCreator
+    public Member(
+            @JsonProperty("id") String id,
+            @JsonProperty("name") String name,
+            @JsonProperty("email") String email,
+            @JsonProperty("password") String password,
+            @JsonProperty("role") Roles role,
+            @JsonProperty("isVerified") boolean isVerified
+    ) {
+        this.id = id != null ? id : "USR-" + counter++;
+        this.email = email;
+        setName(name);
+        setPassword(password);
+        this.role = role;
+        this.isVerified = isVerified;
     }
 
     public Roles getRole() {
