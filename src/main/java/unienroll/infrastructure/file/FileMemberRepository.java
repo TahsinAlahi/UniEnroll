@@ -15,14 +15,16 @@ public class FileMemberRepository implements MemberRepository {
     ObjectMapper mapper = new ObjectMapper();
     private final List<Member> members;
     //    Using map for faster lookup O(1)
-    private final Map<String, Member> membersByEmail = new HashMap<>();
-    private final Map<String, Member> membersById = new HashMap<>();
+    private final Map<String, Member> membersByEmail;
+    private final Map<String, Member> membersById;
 
     //    I will be using singleton pattern,
     //    to maintain a single instance throughout the entire Project
     private static FileMemberRepository instance;
 
     private FileMemberRepository() throws Exception {
+        membersByEmail = new HashMap<>();
+        membersById = new HashMap<>();
         //    It's official I hate java more than my life 😭
         members = mapper.readValue(
                 // TODO: dig more into getResourceAsStream and typeReference later
