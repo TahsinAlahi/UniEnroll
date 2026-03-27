@@ -1,5 +1,8 @@
 package unienroll.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,7 @@ public class Course {
     private final List<String> enrolledStudentsId;
     private int capacity;
 
+    // default constructor
     public Course(String title, String description, String instructorId, int capacity) {
         setTitle(title);
         setDescription(description);
@@ -24,6 +28,23 @@ public class Course {
         setCapacity(capacity);
         this.enrolledStudentsId = new ArrayList<>();
         courseId = "NSU-" + counter++;
+    }
+
+    @JsonCreator
+    public Course(
+            @JsonProperty("courseId") String courseId,
+            @JsonProperty("title") String title,
+            @JsonProperty("description") String description,
+            @JsonProperty("instructorId") String instructorId,
+            @JsonProperty("capacity") int capacity,
+            @JsonProperty("enrolledStudentsId") List<String> enrolledStudentsId
+    ) {
+        setTitle(title);
+        setDescription(description);
+        setInstructorId(instructorId);
+        setCapacity(capacity);
+        this.enrolledStudentsId = enrolledStudentsId;
+        this.courseId = courseId != null ? courseId : "NSU-" + counter++;
     }
 
     public String getCourseId() {
@@ -80,5 +101,18 @@ public class Course {
 
     public boolean hasAvailableSeat() {
         return capacity > enrolledStudentsId.size();
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseId='" + courseId + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", instructorId='" + instructorId + '\'' +
+                ", capacity=" + capacity +
+                ", enrolledStudentsCount=" + enrolledStudentsId.size() +
+                ", enrolledStudentsId=" + enrolledStudentsId +
+                '}';
     }
 }

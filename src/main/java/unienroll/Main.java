@@ -8,7 +8,7 @@ public class Main {
         try {
             FileMemberRepository repository = FileMemberRepository.getInstance();
             FileCourseRepository courseRepository = FileCourseRepository.getInstance();
-//            System.out.println(courseRepository.toString());
+            System.out.println(courseRepository.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -21,9 +21,6 @@ public class FileCourseRepository implements CourseRepository {
         courses = mapper.readValue(Main.class.getResourceAsStream("/data/courses.json"),
                 new TypeReference<>() {
                 });
-        for(Course c: courses){
-            System.out.println(c);
-        }
         coursesById = new HashMap<>();
         for (Course c : courses) {
             coursesById.put(c.getCourseId(), c);
