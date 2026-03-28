@@ -17,7 +17,7 @@ public class Course {
     private String description;
     //    TODO: Make instructorId a reference to the instructor
     private String instructorId;
-    private final List<String> enrolledStudentsId;
+    private List<String> enrolledStudentsId;
     private int capacity;
 
     // default constructor
@@ -43,8 +43,12 @@ public class Course {
         setDescription(description);
         setInstructorId(instructorId);
         setCapacity(capacity);
-        this.enrolledStudentsId = enrolledStudentsId;
+        this.enrolledStudentsId = enrolledStudentsId != null ? enrolledStudentsId : new ArrayList<>();
         this.courseId = courseId != null ? courseId : "NSU-" + counter++;
+    }
+
+    public List<String> getEnrolledStudentsId() {
+        return enrolledStudentsId;
     }
 
     public String getCourseId() {
@@ -81,10 +85,6 @@ public class Course {
 
     public int getCapacity() {
         return capacity;
-    }
-
-    public int getEnrolledStudentsCount() {
-        return enrolledStudentsId.size();
     }
 
     public void enrollStudent(String studentId) {

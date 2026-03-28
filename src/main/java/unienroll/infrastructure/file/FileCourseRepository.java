@@ -6,6 +6,7 @@ import unienroll.Main;
 import unienroll.domain.Course;
 import unienroll.repository.CourseRepository;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ public class FileCourseRepository implements CourseRepository {
     ObjectMapper mapper = new ObjectMapper();
     private final List<Course> courses;
     private final Map<String, Course> coursesById;
+    File file = new File("src/main/resources/data/courses.json");
 
     private static FileCourseRepository instance;
 
@@ -50,7 +52,11 @@ public class FileCourseRepository implements CourseRepository {
 
     @Override
     public Course save(Course entity) {
-        return null;
+        System.out.println(entity.toString());
+        courses.add(entity);
+        coursesById.put(entity.getCourseId(), entity);
+        saveToFile();
+        return entity;
     }
 
     @Override
@@ -67,11 +73,19 @@ public class FileCourseRepository implements CourseRepository {
     public void deleteById(String id) {
         courses.removeIf(c -> c.getCourseId().equals(id));
         coursesById.remove(id);
-
+        saveToFile();
     }
 
     @Override
     public boolean existsById(String id) {
         return coursesById.containsKey(id);
+    }
+
+    private void saveToFile() {
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, courses);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
