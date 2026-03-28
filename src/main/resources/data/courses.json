@@ -1,0 +1,162 @@
+[
+  {
+    "courseId": "NSU-100",
+    "title": "Introduction to Programming",
+    "description": "Fundamental concepts of programming using Java, covering variables, loops, conditionals, and basic algorithms",
+    "instructorId": "INS-001",
+    "capacity": 40,
+    "enrolledStudentsId": ["USR-1001", "USR-1002", "USR-1003", "USR-1004", "USR-1005", "USR-1006", "USR-1007", "USR-1008"]
+  },
+  {
+    "courseId": "NSU-101",
+    "title": "Data Structures and Algorithms",
+    "description": "Advanced study of data structures including trees, graphs, hash tables, and algorithm analysis",
+    "instructorId": "INS-002",
+    "capacity": 35,
+    "enrolledStudentsId": ["USR-1009", "USR-1010", "USR-1011", "USR-1012", "USR-1013", "USR-1014", "USR-1015"]
+  },
+  {
+    "courseId": "NSU-102",
+    "title": "Database Management Systems",
+    "description": "Introduction to relational databases, SQL, database design, and normalization",
+    "instructorId": "INS-003",
+    "capacity": 45,
+    "enrolledStudentsId": ["USR-1016", "USR-1017", "USR-1018", "USR-1019", "USR-1020", "USR-1021"]
+  },
+  {
+    "courseId": "NSU-103",
+    "title": "Web Development Fundamentals",
+    "description": "Full-stack web development covering HTML, CSS, JavaScript, and modern frameworks",
+    "instructorId": "INS-001",
+    "capacity": 50,
+    "enrolledStudentsId": ["USR-1022", "USR-1023", "USR-1024", "USR-1025", "USR-1026", "USR-1027", "USR-1028", "USR-1029", "USR-1030"]
+  },
+  {
+    "courseId": "NSU-104",
+    "title": "Software Engineering Principles",
+    "description": "Software development lifecycle, agile methodologies, testing, and project management",
+    "instructorId": "INS-004",
+    "capacity": 30,
+    "enrolledStudentsId": ["USR-1031", "USR-1032", "USR-1033", "USR-1034", "USR-1035"]
+  },
+  {
+    "courseId": "NSU-105",
+    "title": "Machine Learning Basics",
+    "description": "Introduction to machine learning algorithms, supervised and unsupervised learning",
+    "instructorId": "INS-005",
+    "capacity": 25,
+    "enrolledStudentsId": ["USR-1036", "USR-1037", "USR-1038", "USR-1039", "USR-1040", "USR-1041"]
+  },
+  {
+    "courseId": "NSU-106",
+    "title": "Computer Networks",
+    "description": "Network protocols, OSI model, TCP/IP, routing, and network security fundamentals",
+    "instructorId": "INS-002",
+    "capacity": 38,
+    "enrolledStudentsId": ["USR-1042", "USR-1043", "USR-1044", "USR-1045", "USR-1046", "USR-1047", "USR-1048"]
+  },
+  {
+    "courseId": "NSU-107",
+    "title": "Operating Systems",
+    "description": "Process management, memory management, file systems, and concurrency",
+    "instructorId": "INS-006",
+    "capacity": 42,
+    "enrolledStudentsId": ["USR-1049", "USR-1050", "USR-1051", "USR-1052", "USR-1053", "USR-1054", "USR-1055", "USR-1056"]
+  },
+  {
+    "courseId": "NSU-108",
+    "title": "Cybersecurity Fundamentals",
+    "description": "Security principles, cryptography, network security, and ethical hacking basics",
+    "instructorId": "INS-007",
+    "capacity": 28,
+    "enrolledStudentsId": ["USR-1057", "USR-1058", "USR-1059", "USR-1060", "USR-1061"]
+  },
+  {
+    "courseId": "NSU-109",
+    "title": "Mobile App Development",
+    "description": "Building Android and iOS applications using cross-platform frameworks",
+    "instructorId": "INS-003",
+    "capacity": 35,
+    "enrolledStudentsId": ["USR-1062", "USR-1063", "USR-1064", "USR-1065", "USR-1066", "USR-1067", "USR-1068", "USR-1069"]
+  },
+  {
+    "courseId": "NSU-110",
+    "title": "Cloud Computing",
+    "description": "AWS, Azure, and Google Cloud platforms, serverless architecture, and deployment strategies",
+    "instructorId": "INS-008",
+    "capacity": 32,
+    "enrolledStudentsId": ["USR-1070", "USR-1071", "USR-1072", "USR-1073", "USR-1074"]
+  },
+  {
+    "courseId": "NSU-111",
+    "title": "Artificial Intelligence",
+    "description": "Search algorithms, knowledge representation, natural language processing, and AI ethics",
+    "instructorId": "INS-005",
+    "capacity": 30,
+    "enrolledStudentsId": ["USR-1075", "USR-1076", "USR-1077", "USR-1078", "USR-1079", "USR-1080", "USR-1081"]
+  },
+  {
+    "courseId": "NSU-112",
+    "title": "Big Data Analytics",
+    "description": "Hadoop, Spark, data processing pipelines, and analytics techniques for large datasets",
+    "instructorId": "INS-009",
+    "capacity": 28,
+    "enrolledStudentsId": ["USR-1082", "USR-1083", "USR-1084", "USR-1085", "USR-1086"]
+  },
+  {
+    "courseId": "NSU-113",
+    "title": "DevOps Practices",
+    "description": "CI/CD pipelines, containerization with Docker, orchestration with Kubernetes",
+    "instructorId": "INS-008",
+    "capacity": 35,
+    "enrolledStudentsId": ["USR-1087", "USR-1088", "USR-1089", "USR-1090", "USR-1091", "USR-1092", "USR-1093"]
+  },
+  {
+    "courseId": "NSU-114",
+    "title": "User Experience Design",
+    "description": "UI/UX principles, user research, prototyping, and usability testing",
+    "instructorId": "INS-010",
+    "capacity": 40,
+    "enrolledStudentsId": ["USR-1094", "USR-1095", "USR-1096", "USR-1097", "USR-1098", "USR-1099"]
+  },
+  {
+    "courseId": "NSU-115",
+    "title": "Blockchain Technology",
+    "description": "Cryptocurrency, smart contracts, decentralized applications, and consensus mechanisms",
+    "instructorId": "INS-007",
+    "capacity": 25,
+    "enrolledStudentsId": ["USR-1100", "USR-1101", "USR-1102", "USR-1103", "USR-1104", "USR-1105"]
+  },
+  {
+    "courseId": "NSU-116",
+    "title": "Embedded Systems",
+    "description": "Microcontrollers, IoT devices, real-time operating systems, and hardware-software integration",
+    "instructorId": "INS-011",
+    "capacity": 20,
+    "enrolledStudentsId": ["USR-1106", "USR-1107", "USR-1108", "USR-1109", "USR-1110"]
+  },
+  {
+    "courseId": "NSU-117",
+    "title": "Game Development",
+    "description": "Unity game engine, 2D and 3D game design, physics, and game mechanics",
+    "instructorId": "INS-012",
+    "capacity": 30,
+    "enrolledStudentsId": ["USR-1111", "USR-1112", "USR-1113", "USR-1114", "USR-1115", "USR-1116", "USR-1117"]
+  },
+  {
+    "courseId": "NSU-118",
+    "title": "Robotics Programming",
+    "description": "Robot control systems, sensor integration, path planning, and autonomous navigation",
+    "instructorId": "INS-011",
+    "capacity": 18,
+    "enrolledStudentsId": ["USR-1118", "USR-1119", "USR-1120", "USR-1121", "USR-1122"]
+  },
+  {
+    "courseId": "NSU-119",
+    "title": "Technical Writing and Communication",
+    "description": "Documentation, technical reports, presentations, and effective communication for engineers",
+    "instructorId": "INS-013",
+    "capacity": 35,
+    "enrolledStudentsId": ["USR-1123", "USR-1124", "USR-1125", "USR-1126", "USR-1127", "USR-1128", "USR-1129", "USR-1130"]
+  }
+]

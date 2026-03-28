@@ -7,9 +7,11 @@ import unienroll.Main;
 import unienroll.domain.Member;
 import unienroll.repository.MemberRepository;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class FileMemberRepository implements MemberRepository {
     ObjectMapper mapper = new ObjectMapper();
@@ -17,6 +19,8 @@ public class FileMemberRepository implements MemberRepository {
     //    Using map for faster lookup O(1)
     private final Map<String, Member> membersByEmail;
     private final Map<String, Member> membersById;
+    //    I could've also used getClass().getResource("/data/members.json").getFile()
+    private final File file = new File("src/main/resources/data/members.json");
 
     //    I will be using singleton pattern,
     //    to maintain a single instance throughout the entire Project
@@ -25,6 +29,7 @@ public class FileMemberRepository implements MemberRepository {
     private FileMemberRepository() throws Exception {
         membersByEmail = new HashMap<>();
         membersById = new HashMap<>();
+        System.out.println(file.getAbsolutePath());
         //    It's official I hate java more than my life 😭
         members = mapper.readValue(
                 // TODO: dig more into getResourceAsStream and typeReference later
@@ -69,7 +74,11 @@ public class FileMemberRepository implements MemberRepository {
 
     @Override
     public Member save(Member entity) {
-        return null;
+        members.add(entity);
+        membersByEmail.put(entity.getEmail(), entity);
+        membersById.put(entity.getId(), entity);
+        saveToFile();
+        return entity;
     }
 
     @Override
@@ -84,11 +93,12 @@ public class FileMemberRepository implements MemberRepository {
 
     @Override
     public void deleteById(String id) {
-        //        removeIf could be easier but less declarative
+        //   removeIf could be easier but less declarative
         Member removedMember = membersById.get(id);
         members.remove(removedMember);
         membersByEmail.remove(removedMember.getEmail());
         membersById.remove(id);
+        saveToFile();
     }
 
     @Override
@@ -100,6 +110,14 @@ public class FileMemberRepository implements MemberRepository {
         for (Member m : members) {
             membersByEmail.put(m.getEmail().toLowerCase(), m);
             membersById.put(m.getId(), m);
+        }
+    }
+
+    private void saveToFile() {
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, members);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

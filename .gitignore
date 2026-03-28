@@ -67,7 +67,7 @@ log/
 *.db
 *.sqlite
 *.h2.db
-data/
+src/main/java/unienroll/data/
 *.data
 *.store
 
