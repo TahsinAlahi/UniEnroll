@@ -9,8 +9,8 @@ public class Main {
             FileMemberRepository repository = FileMemberRepository.getInstance();
             FileCourseRepository courseRepository = FileCourseRepository.getInstance();
 //            System.out.println(courseRepository.toString());
-//            repository.save(new Student("Tahsin", "tp@gmail.com", "SupermanFlies"));
-//            courseRepository.save(new Course("NSU-100", "This a very good course", "Batman", 67));
+//            repository.add(new Student("Tahsin", "tp@gmail.com", "SupermanFlies"));
+//            courseRepository.add(new Course("NSU-100", "This a very good course", "Batman", 67));
         } catch (Exception e) {
             e.printStackTrace();
         }

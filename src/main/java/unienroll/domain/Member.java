@@ -72,8 +72,12 @@ public class Member {
         return email;
     }
 
-    private void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isValidPassword( String password){
+        return this.password.equals(password);
     }
 
     public boolean getIsVerified() {

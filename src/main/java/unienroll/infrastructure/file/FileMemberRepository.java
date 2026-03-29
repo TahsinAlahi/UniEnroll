@@ -68,16 +68,38 @@ public class FileMemberRepository implements MemberRepository {
     }
 
     @Override
+    public void update(Member member) {
+        // Replace in list
+        for (int i = 0; i < members.size(); i++) {
+            if (members.get(i).getId().equals(member.getId())) {
+                members.set(i, member);
+                break;
+            }
+        }
+
+        // Update maps
+        membersById.put(member.getId(), member);
+        membersByEmail.put(member.getEmail().toLowerCase(), member);
+
+        save();
+    }
+
+    @Override
     public boolean existsByEmail(String email) {
         return membersByEmail.containsKey(email);
     }
 
     @Override
-    public Member save(Member entity) {
+    public void save() {
+        saveToFile();
+    }
+
+    @Override
+    public Member add(Member entity) {
         members.add(entity);
         membersByEmail.put(entity.getEmail(), entity);
         membersById.put(entity.getId(), entity);
-        saveToFile();
+        save();
         return entity;
     }
 
@@ -98,7 +120,7 @@ public class FileMemberRepository implements MemberRepository {
         members.remove(removedMember);
         membersByEmail.remove(removedMember.getEmail());
         membersById.remove(id);
-        saveToFile();
+        save();
     }
 
     @Override

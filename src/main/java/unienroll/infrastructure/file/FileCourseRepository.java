@@ -51,11 +51,31 @@ public class FileCourseRepository implements CourseRepository {
     }
 
     @Override
-    public Course save(Course entity) {
+    public void update(Course entity) {
+        // update the list
+        for(int i=0; i<courses.size(); i++){
+            if(courses.get(i).getCourseId().equals(entity.getCourseId())){
+                courses.set(i, entity);
+                break;
+            }
+        }
+
+        // update the map
+        coursesById.put(entity.getCourseId(), entity);
+        save();
+    }
+
+    @Override
+    public void save() {
+        saveToFile();
+    }
+
+    @Override
+    public Course add(Course entity) {
         System.out.println(entity.toString());
         courses.add(entity);
         coursesById.put(entity.getCourseId(), entity);
-        saveToFile();
+        save();
         return entity;
     }
 
@@ -73,7 +93,7 @@ public class FileCourseRepository implements CourseRepository {
     public void deleteById(String id) {
         courses.removeIf(c -> c.getCourseId().equals(id));
         coursesById.remove(id);
-        saveToFile();
+        save();
     }
 
     @Override
