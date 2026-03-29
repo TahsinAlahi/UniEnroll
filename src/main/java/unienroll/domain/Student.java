@@ -51,6 +51,7 @@ public class Student extends Member {
                 ", email='" + getEmail() + '\'' +
                 ", verified=" + getIsVerified() +
                 ", enrolledCourses=" + enrolledCoursesId +
+                ", password='" + getPassword() + '\'' +
                 '}';
     }
 }

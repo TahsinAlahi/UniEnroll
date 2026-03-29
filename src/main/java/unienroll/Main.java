@@ -8,6 +8,7 @@ public class Main {
         try {
             FileMemberRepository repository = FileMemberRepository.getInstance();
             FileCourseRepository courseRepository = FileCourseRepository.getInstance();
+//            System.out.println(repository.toString());
 //            System.out.println(courseRepository.toString());
 //            repository.add(new Student("Tahsin", "tp@gmail.com", "SupermanFlies"));
 //            courseRepository.add(new Course("NSU-100", "This a very good course", "Batman", 67));

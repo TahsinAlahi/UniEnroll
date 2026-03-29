@@ -30,6 +30,7 @@ public class Admin extends Member {
                 "name='" + getName() + '\'' +
                 ", email='" + getEmail() + '\'' +
                 ", isVerified=" + getIsVerified() +
+                ", password='" + getPassword() + '\'' +
                 '}';
     }
 

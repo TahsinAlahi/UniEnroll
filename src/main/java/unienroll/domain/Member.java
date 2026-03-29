@@ -76,6 +76,11 @@ public class Member {
         this.password = password;
     }
 
+    @JsonProperty("password")
+    protected String getPassword() {
+        return password;
+    }
+
     public boolean isValidPassword( String password){
         return this.password.equals(password);
     }
@@ -94,6 +99,7 @@ public class Member {
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", isVerified=" + isVerified +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

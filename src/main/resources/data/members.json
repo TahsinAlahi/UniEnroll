@@ -1,68 +1,89 @@
-[ {
-  "id" : "USR-100",
-  "name" : "Alice Johnson",
-  "email" : "alice.johnson@example.com",
-  "isVerified" : true,
-  "enrolledCoursesId" : [ "CS101", "MAT120" ],
-  "role" : "STUDENT"
-}, {
-  "id" : "USR-101",
-  "name" : "Bob Smith",
-  "email" : "bob.smith@example.com",
-  "isVerified" : false,
-  "enrolledCoursesId" : [ "HIS103" ],
-  "role" : "STUDENT"
-}, {
-  "id" : "USR-102",
-  "name" : "Catherine Lee",
-  "email" : "catherine.lee@example.com",
-  "isVerified" : true,
-  "role" : "ADMIN"
-}, {
-  "id" : "USR-103",
-  "name" : "David Kim",
-  "email" : "david.kim@example.com",
-  "isVerified" : true,
-  "enrolledCoursesId" : [ "ECO101", "CS101", "MAT120" ],
-  "role" : "STUDENT"
-}, {
-  "id" : "USR-104",
-  "name" : "Emma Wilson",
-  "email" : "emma.wilson@example.com",
-  "isVerified" : true,
-  "role" : "ADMIN"
-}, {
-  "id" : "USR-105",
-  "name" : "Frank Zhang",
-  "email" : "frank.zhang@example.com",
-  "isVerified" : false,
-  "enrolledCoursesId" : [ ],
-  "role" : "STUDENT"
-}, {
-  "id" : "USR-106",
-  "name" : "Grace Patel",
-  "email" : "grace.patel@example.com",
-  "isVerified" : true,
-  "enrolledCoursesId" : [ "MAT120", "HIS103" ],
-  "role" : "STUDENT"
-}, {
-  "id" : "USR-107",
-  "name" : "Henry Adams",
-  "email" : "henry.adams@example.com",
-  "isVerified" : true,
-  "role" : "ADMIN"
-}, {
-  "id" : "USR-108",
-  "name" : "Isabella Lopez",
-  "email" : "isabella.lopez@example.com",
-  "isVerified" : false,
-  "enrolledCoursesId" : [ "CS101" ],
-  "role" : "STUDENT"
-}, {
-  "id" : "USR-109",
-  "name" : "Jack Nguyen",
-  "email" : "jack.nguyen@example.com",
-  "isVerified" : true,
-  "enrolledCoursesId" : [ "ECO101" ],
-  "role" : "STUDENT"
-}]
+[
+  {
+    "id": "USR-100",
+    "name": "Alice Johnson",
+    "email": "alice.johnson@example.com",
+    "password": "Alice@123",
+    "isVerified": true,
+    "enrolledCoursesId": ["CS101", "MAT120"],
+    "role": "STUDENT"
+  },
+  {
+    "id": "USR-101",
+    "name": "Bob Smith",
+    "email": "bob.smith@example.com",
+    "password": "Bob@456",
+    "isVerified": false,
+    "enrolledCoursesId": ["HIS103"],
+    "role": "STUDENT"
+  },
+  {
+    "id": "USR-102",
+    "name": "Catherine Lee",
+    "email": "catherine.lee@example.com",
+    "password": "Cath@789",
+    "isVerified": true,
+    "role": "ADMIN"
+  },
+  {
+    "id": "USR-103",
+    "name": "David Kim",
+    "email": "david.kim@example.com",
+    "password": "David@101",
+    "isVerified": true,
+    "enrolledCoursesId": ["ECO101", "CS101", "MAT120"],
+    "role": "STUDENT"
+  },
+  {
+    "id": "USR-104",
+    "name": "Emma Wilson",
+    "email": "emma.wilson@example.com",
+    "password": "Emma@202",
+    "isVerified": true,
+    "role": "ADMIN"
+  },
+  {
+    "id": "USR-105",
+    "name": "Frank Zhang",
+    "email": "frank.zhang@example.com",
+    "password": "Frank@303",
+    "isVerified": false,
+    "enrolledCoursesId": [],
+    "role": "STUDENT"
+  },
+  {
+    "id": "USR-106",
+    "name": "Grace Patel",
+    "email": "grace.patel@example.com",
+    "password": "Grace@404",
+    "isVerified": true,
+    "enrolledCoursesId": ["MAT120", "HIS103"],
+    "role": "STUDENT"
+  },
+  {
+    "id": "USR-107",
+    "name": "Henry Adams",
+    "email": "henry.adams@example.com",
+    "password": "Henry@505",
+    "isVerified": true,
+    "role": "ADMIN"
+  },
+  {
+    "id": "USR-108",
+    "name": "Isabella Lopez",
+    "email": "isabella.lopez@example.com",
+    "password": "Isa@606",
+    "isVerified": false,
+    "enrolledCoursesId": ["CS101"],
+    "role": "STUDENT"
+  },
+  {
+    "id": "USR-109",
+    "name": "Jack Nguyen",
+    "email": "jack.nguyen@example.com",
+    "password": "Jack@707",
+    "isVerified": true,
+    "enrolledCoursesId": ["ECO101"],
+    "role": "STUDENT"
+  }
+]
