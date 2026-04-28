@@ -10,13 +10,15 @@ import unienroll.domain.Roles;
 import unienroll.ui.SessionState;
 import unienroll.ui.controllers.AuthController;
 import unienroll.ui.controllers.DashboardController;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class DashboardView {
     private final DashboardController dashboardController;
     private final AuthController authController;
     private final NavigationHandler navigationHandler;
 
-    public DashboardView(DashboardController dashboardController, AuthController authController, NavigationHandler navigationHandler) {
+    public DashboardView(DashboardController dashboardController, AuthController authController,
+            NavigationHandler navigationHandler) {
         this.dashboardController = dashboardController;
         this.authController = authController;
         this.navigationHandler = navigationHandler;
@@ -39,7 +41,7 @@ public class DashboardView {
 
         Label welcomeLabel = new Label("Welcome, " + currentUser.getName() + " (" + currentUser.getRole() + ")");
         welcomeLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;");
-        
+
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
@@ -58,7 +60,8 @@ public class DashboardView {
         content.setPadding(new Insets(30));
 
         if (!currentUser.getIsVerified()) {
-            Label unverifiedLabel = new Label("Your account is pending approval by an Admin.\nYou cannot access system features yet.");
+            Label unverifiedLabel = new Label(
+                    "Your account is pending approval by an Admin.\nYou cannot access system features yet.");
             unverifiedLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #e67e22; -fx-font-weight: bold;");
             content.getChildren().add(unverifiedLabel);
         } else {
@@ -81,11 +84,11 @@ public class DashboardView {
         // Pending Members Section
         Label pendingLabel = new Label("Pending Members");
         pendingLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
-        
+
         ListView<Member> pendingListView = new ListView<>();
         pendingListView.getItems().addAll(dashboardController.getPendingMembers());
         pendingListView.setPrefHeight(150);
-        
+
         Button approveButton = new Button("Approve Selected");
         approveButton.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-cursor: hand;");
         approveButton.setOnAction(e -> {
@@ -104,27 +107,30 @@ public class DashboardView {
         // Create Course Section
         Label courseLabel = new Label("Create New Course");
         courseLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
-        
+
         TextField titleField = new TextField();
         titleField.setPromptText("Course Title");
         titleField.setStyle("-fx-padding: 8px;");
-        
+
         TextField descField = new TextField();
         descField.setPromptText("Description");
         descField.setStyle("-fx-padding: 8px;");
-        
+
         TextField capacityField = new TextField();
         capacityField.setPromptText("Capacity (e.g. 30)");
         capacityField.setStyle("-fx-padding: 8px;");
-        
+
         Button createCourseBtn = new Button("Create Course");
-        createCourseBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-cursor: hand; -fx-padding: 8px 15px;");
+        createCourseBtn.setStyle(
+                "-fx-background-color: #3498db; -fx-text-fill: white; -fx-cursor: hand; -fx-padding: 8px 15px;");
         createCourseBtn.setOnAction(e -> {
             try {
                 int capacity = Integer.parseInt(capacityField.getText());
                 dashboardController.createCourse(titleField.getText(), descField.getText(), capacity);
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Course created successfully.");
-                titleField.clear(); descField.clear(); capacityField.clear();
+                titleField.clear();
+                descField.clear();
+                capacityField.clear();
             } catch (NumberFormatException ex) {
                 showAlert(Alert.AlertType.ERROR, "Input Error", "Capacity must be a valid number.");
             } catch (Exception ex) {
@@ -133,7 +139,8 @@ public class DashboardView {
         });
 
         VBox createCourseBox = new VBox(10, courseLabel, titleField, descField, capacityField, createCourseBtn);
-        createCourseBox.setStyle("-fx-padding: 20px; -fx-background-color: white; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
+        createCourseBox.setStyle(
+                "-fx-padding: 20px; -fx-background-color: white; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
 
         content.getChildren().addAll(pendingLabel, pendingListView, approveButton, new Separator(), createCourseBox);
     }
@@ -143,25 +150,60 @@ public class DashboardView {
         Label availableLabel = new Label("Available Courses");
         availableLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
-        ListView<Course> availableListView = new ListView<>();
-        availableListView.getItems().addAll(dashboardController.getAvailableCourses());
-        availableListView.setPrefHeight(150);
+        TableView<Course> availableTableView = new TableView<>();
+        availableTableView.setPrefHeight(150);
+
+        TableColumn<Course, String> titleCol = new TableColumn<>("Title");
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        titleCol.setPrefWidth(200);
+
+        TableColumn<Course, String> descCol = new TableColumn<>("Description");
+        descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        descCol.setPrefWidth(300);
+
+        TableColumn<Course, Integer> capCol = new TableColumn<>("Capacity");
+        capCol.setCellValueFactory(new PropertyValueFactory<>("capacity"));
+        capCol.setPrefWidth(100);
+
+        TableColumn<Course, Integer> availableSeatsCol = new TableColumn<>("Available Seats");
+        availableSeatsCol.setCellValueFactory(cellData -> {
+            Course course = cellData.getValue();
+
+            int availableSeats = course.availableSeats();
+
+            return new javafx.beans.property.SimpleObjectProperty<>(availableSeats);
+        });
+        availableSeatsCol.setPrefWidth(150);
+
+        availableTableView.getColumns().addAll(titleCol, descCol, capCol, availableSeatsCol);
+        availableTableView.getItems().addAll(dashboardController.getAvailableCourses());
 
         Button enrollButton = new Button("Enroll in Selected Course");
         enrollButton.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-cursor: hand;");
-        
-        ListView<Course> enrolledListView = new ListView<>();
-        enrolledListView.getItems().addAll(dashboardController.getEnrolledCourses());
-        enrolledListView.setPrefHeight(150);
+
+        TableView<Course> enrolledTableView = new TableView<>();
+        enrolledTableView.setPrefHeight(150);
+
+        TableColumn<Course, String> enrTitleCol = new TableColumn<>("Title");
+        enrTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        enrTitleCol.setPrefWidth(200);
+
+        TableColumn<Course, String> enrDescCol = new TableColumn<>("Description");
+        enrDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        enrDescCol.setPrefWidth(300);
+
+        enrolledTableView.getColumns().addAll(enrTitleCol, enrDescCol);
+        enrolledTableView.getItems().addAll(dashboardController.getEnrolledCourses());
 
         enrollButton.setOnAction(e -> {
-            Course selected = availableListView.getSelectionModel().getSelectedItem();
+            Course selected = availableTableView.getSelectionModel().getSelectedItem();
             if (selected != null) {
                 try {
                     dashboardController.enrollCourse(selected.getCourseId());
-                    enrolledListView.getItems().clear();
-                    enrolledListView.getItems().addAll(dashboardController.getEnrolledCourses());
-                    showAlert(Alert.AlertType.INFORMATION, "Success", "Enrolled successfully in " + selected.getTitle());
+                    enrolledTableView.getItems().clear();
+                    enrolledTableView.getItems().addAll(dashboardController.getEnrolledCourses());
+                    showAlert(Alert.AlertType.INFORMATION, "Success",
+                            "Enrolled successfully in " + selected.getTitle());
                 } catch (Exception ex) {
                     showAlert(Alert.AlertType.ERROR, "Error", ex.getMessage());
                 }
@@ -171,7 +213,8 @@ public class DashboardView {
         Label enrolledLabel = new Label("Your Enrolled Courses");
         enrolledLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
-        content.getChildren().addAll(availableLabel, availableListView, enrollButton, new Separator(), enrolledLabel, enrolledListView);
+        content.getChildren().addAll(availableLabel, availableTableView, enrollButton, new Separator(), enrolledLabel,
+                enrolledTableView);
     }
 
     private void showAlert(Alert.AlertType type, String title, String contentText) {

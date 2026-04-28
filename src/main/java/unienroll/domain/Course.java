@@ -106,6 +106,10 @@ public class Course {
         return capacity > enrolledStudentsId.size();
     }
 
+    public int availableSeats() {
+        return capacity - enrolledStudentsId.size();
+    }
+
     @Override
     public String toString() {
         return "Course{" +
