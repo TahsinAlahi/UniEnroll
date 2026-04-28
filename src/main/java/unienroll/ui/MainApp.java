@@ -4,8 +4,10 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import unienroll.application.CourseService;
 import unienroll.application.MemberService;
+import unienroll.application.RegistrationWindowService;
 import unienroll.infrastructure.file.FileCourseRepository;
 import unienroll.infrastructure.file.FileMemberRepository;
+import unienroll.infrastructure.file.FileRegistrationWindowRepository;
 import unienroll.ui.controllers.AuthController;
 import unienroll.ui.controllers.DashboardController;
 import unienroll.ui.scenes.DashboardView;
@@ -29,12 +31,14 @@ public class MainApp extends Application implements NavigationHandler {
         // Initialize Use Cases & Repositories
         FileMemberRepository memberRepo = FileMemberRepository.getInstance();
         FileCourseRepository courseRepo = FileCourseRepository.getInstance();
+        FileRegistrationWindowRepository windowRepo = FileRegistrationWindowRepository.getInstance();
 
+        RegistrationWindowService windowService = new RegistrationWindowService(windowRepo);
         MemberService memberService = new MemberService(memberRepo);
-        CourseService courseService = new CourseService(courseRepo, memberRepo);
+        CourseService courseService = new CourseService(courseRepo, memberRepo, windowService);
 
         this.authController = new AuthController(memberService);
-        this.dashboardController = new DashboardController(memberService, courseService);
+        this.dashboardController = new DashboardController(memberService, courseService, windowService);
 
         // Show default scene
         showLogin();

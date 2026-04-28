@@ -5,10 +5,13 @@ import unienroll.application.MemberService;
 import unienroll.domain.Course;
 import unienroll.domain.Member;
 import unienroll.domain.Student;
+import unienroll.application.RegistrationWindowService;
+import unienroll.domain.RegistrationWindow;
 import unienroll.exception.NotFoundException;
 import unienroll.exception.UnauthorizedException;
 import unienroll.exception.ValidationException;
 import unienroll.ui.SessionState;
+import java.time.LocalDateTime;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,11 +19,13 @@ import java.util.stream.Collectors;
 public class DashboardController {
     private final MemberService memberService;
     private final CourseService courseService;
+    private final RegistrationWindowService registrationWindowService;
     private final SessionState sessionState;
 
-    public DashboardController(MemberService memberService, CourseService courseService) {
+    public DashboardController(MemberService memberService, CourseService courseService, RegistrationWindowService registrationWindowService) {
         this.memberService = memberService;
         this.courseService = courseService;
+        this.registrationWindowService = registrationWindowService;
         this.sessionState = SessionState.getInstance();
     }
 
@@ -45,6 +50,18 @@ public class DashboardController {
         try {
             courseService.createCourse(title, description, currentUser.getId(), capacity);
         } catch (NotFoundException | ValidationException e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public void setRegistrationWindow(LocalDateTime start, LocalDateTime end) throws Exception {
+        Member currentUser = sessionState.getLoggedInMember();
+        if (currentUser == null || !currentUser.getIsVerified() || currentUser.getRole() != unienroll.domain.Roles.ADMIN) {
+            throw new Exception("You must be an admin to configure the registration window.");
+        }
+        try {
+            registrationWindowService.setRegistrationWindow(start, end);
+        } catch (ValidationException e) {
             throw new Exception(e.getMessage());
         }
     }
@@ -75,5 +92,13 @@ public class DashboardController {
         } catch (NotFoundException | UnauthorizedException | IllegalStateException e) {
             throw new Exception(e.getMessage());
         }
+    }
+
+    public RegistrationWindow getRegistrationWindow() {
+        return registrationWindowService.getRegistrationWindow();
+    }
+
+    public boolean isRegistrationActive() {
+        return registrationWindowService.isRegistrationActive();
     }
 }

@@ -14,10 +14,12 @@ import java.util.List;
 public class CourseService {
     private final CourseRepository courseRepository;
     private final MemberRepository memberRepository;
+    private final RegistrationWindowService registrationWindowService;
 
-    public CourseService(CourseRepository courseRepository, MemberRepository memberRepository) {
+    public CourseService(CourseRepository courseRepository, MemberRepository memberRepository, RegistrationWindowService registrationWindowService) {
         this.courseRepository = courseRepository;
         this.memberRepository = memberRepository;
+        this.registrationWindowService = registrationWindowService;
     }
 
     public Course createCourse(String title, String description, String instructorId, int capacity) {
@@ -45,6 +47,9 @@ public class CourseService {
         }
         if (!member.getIsVerified()) {
             throw new UnauthorizedException("Student is not verified by an admin yet.");
+        }
+        if (!registrationWindowService.isRegistrationActive()) {
+            throw new IllegalStateException("Course registration is currently closed.");
         }
 
         Course course = courseRepository.findById(courseId);

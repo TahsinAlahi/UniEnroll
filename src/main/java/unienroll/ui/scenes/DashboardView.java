@@ -6,11 +6,18 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import unienroll.domain.Course;
 import unienroll.domain.Member;
+import unienroll.domain.RegistrationWindow;
 import unienroll.domain.Roles;
 import unienroll.ui.SessionState;
 import unienroll.ui.controllers.AuthController;
 import unienroll.ui.controllers.DashboardController;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 public class DashboardView {
     private final DashboardController dashboardController;
@@ -142,7 +149,54 @@ public class DashboardView {
         createCourseBox.setStyle(
                 "-fx-padding: 20px; -fx-background-color: white; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
 
-        content.getChildren().addAll(pendingLabel, pendingListView, approveButton, new Separator(), createCourseBox);
+        // Registration Window Section
+        Label windowLabel = new Label("Course Registration Window");
+        windowLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+
+        HBox startBox = new HBox(10);
+        DatePicker startDatePicker = new DatePicker();
+        startDatePicker.setPromptText("Start Date");
+        TextField startTimeField = new TextField();
+        startTimeField.setPromptText("HH:mm");
+        startTimeField.setPrefWidth(80);
+        startBox.getChildren().addAll(new Label("Start:"), startDatePicker, startTimeField);
+        startBox.setStyle("-fx-alignment: center-left;");
+
+        HBox endBox = new HBox(10);
+        DatePicker endDatePicker = new DatePicker();
+        endDatePicker.setPromptText("End Date");
+        TextField endTimeField = new TextField();
+        endTimeField.setPromptText("HH:mm");
+        endTimeField.setPrefWidth(80);
+        endBox.getChildren().addAll(new Label("End:"), endDatePicker, endTimeField);
+        endBox.setStyle("-fx-alignment: center-left;");
+
+        Button updateWindowBtn = new Button("Update Window");
+        updateWindowBtn.setStyle("-fx-background-color: #f39c12; -fx-text-fill: white; -fx-cursor: hand; -fx-padding: 8px 15px;");
+        updateWindowBtn.setOnAction(e -> {
+            try {
+                if (startDatePicker.getValue() == null || endDatePicker.getValue() == null) {
+                    throw new Exception("Please select both start and end dates.");
+                }
+                LocalTime startTime = LocalTime.parse(startTimeField.getText().isEmpty() ? "00:00" : startTimeField.getText());
+                LocalTime endTime = LocalTime.parse(endTimeField.getText().isEmpty() ? "23:59" : endTimeField.getText());
+                
+                LocalDateTime startDT = LocalDateTime.of(startDatePicker.getValue(), startTime);
+                LocalDateTime endDT = LocalDateTime.of(endDatePicker.getValue(), endTime);
+                
+                dashboardController.setRegistrationWindow(startDT, endDT);
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Registration window updated successfully.");
+            } catch (DateTimeParseException ex) {
+                showAlert(Alert.AlertType.ERROR, "Invalid Time", "Please use HH:mm format for time (e.g. 14:30).");
+            } catch (Exception ex) {
+                showAlert(Alert.AlertType.ERROR, "Error", ex.getMessage());
+            }
+        });
+
+        VBox windowBox = new VBox(10, windowLabel, startBox, endBox, updateWindowBtn);
+        windowBox.setStyle("-fx-padding: 20px; -fx-background-color: white; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);");
+
+        content.getChildren().addAll(pendingLabel, pendingListView, approveButton, new Separator(), createCourseBox, new Separator(), windowBox);
     }
 
     private void buildStudentDashboard(VBox content) {
@@ -213,7 +267,42 @@ public class DashboardView {
         Label enrolledLabel = new Label("Your Enrolled Courses");
         enrolledLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
-        content.getChildren().addAll(availableLabel, availableTableView, enrollButton, new Separator(), enrolledLabel,
+        // Registration Window Status
+        VBox statusBox = new VBox(5);
+        statusBox.setStyle("-fx-padding: 15px; -fx-background-color: #ecf0f1; -fx-background-radius: 8px; -fx-border-color: #bdc3c7; -fx-border-radius: 8px;");
+        Label statusLabel = new Label("Registration Status: Checking...");
+        statusLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        Label countdownLabel = new Label("");
+        countdownLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #e74c3c; -fx-font-weight: bold;");
+        statusBox.getChildren().addAll(statusLabel, countdownLabel);
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            RegistrationWindow window = dashboardController.getRegistrationWindow();
+            LocalDateTime now = LocalDateTime.now();
+            if (window == null) {
+                statusLabel.setText("Registration Status: NOT SET");
+                countdownLabel.setText("");
+                enrollButton.setDisable(true);
+            } else if (now.isBefore(window.getStartDateTime())) {
+                statusLabel.setText("Registration Status: OPENS SOON");
+                java.time.Duration duration = java.time.Duration.between(now, window.getStartDateTime());
+                countdownLabel.setText(formatDuration(duration) + " until open");
+                enrollButton.setDisable(true);
+            } else if (now.isAfter(window.getEndDateTime())) {
+                statusLabel.setText("Registration Status: CLOSED");
+                countdownLabel.setText("");
+                enrollButton.setDisable(true);
+            } else {
+                statusLabel.setText("Registration Status: ACTIVE");
+                java.time.Duration duration = java.time.Duration.between(now, window.getEndDateTime());
+                countdownLabel.setText(formatDuration(duration) + " remaining");
+                enrollButton.setDisable(false);
+            }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
+        content.getChildren().addAll(statusBox, availableLabel, availableTableView, enrollButton, new Separator(), enrolledLabel,
                 enrolledTableView);
     }
 
@@ -223,5 +312,13 @@ public class DashboardView {
         alert.setHeaderText(null);
         alert.setContentText(contentText);
         alert.showAndWait();
+    }
+
+    private String formatDuration(java.time.Duration duration) {
+        long days = duration.toDays();
+        long hours = duration.toHoursPart();
+        long minutes = duration.toMinutesPart();
+        long seconds = duration.toSecondsPart();
+        return String.format("%d days, %02d:%02d:%02d", days, hours, minutes, seconds);
     }
 }

@@ -9,8 +9,11 @@ import unienroll.exception.DuplicateResourceException;
 import unienroll.exception.NotFoundException;
 import unienroll.exception.UnauthorizedException;
 import unienroll.exception.ValidationException;
+import unienroll.application.RegistrationWindowService;
 import unienroll.infrastructure.file.FileCourseRepository;
 import unienroll.infrastructure.file.FileMemberRepository;
+import unienroll.infrastructure.file.FileRegistrationWindowRepository;
+import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,9 +23,14 @@ public class Main {
             // 1. Dependency Injection setup
             FileMemberRepository memberRepo = FileMemberRepository.getInstance();
             FileCourseRepository courseRepo = FileCourseRepository.getInstance();
+            FileRegistrationWindowRepository windowRepo = FileRegistrationWindowRepository.getInstance();
 
+            RegistrationWindowService windowService = new RegistrationWindowService(windowRepo);
             MemberService memberService = new MemberService(memberRepo);
-            CourseService courseService = new CourseService(courseRepo, memberRepo);
+            CourseService courseService = new CourseService(courseRepo, memberRepo, windowService);
+
+            // Set an active registration window for demo purposes
+            windowService.setRegistrationWindow(LocalDateTime.now().minusMinutes(10), LocalDateTime.now().plusHours(1));
 
             // 2. Create an Admin
             System.out.println("\n--- Registering Admin ---");
