@@ -3,40 +3,42 @@ package unienroll.application;
 import unienroll.domain.Admin;
 import unienroll.domain.Member;
 import unienroll.domain.Student;
-import unienroll.infrastructure.file.FileMemberRepository;
+import unienroll.exception.DuplicateResourceException;
+import unienroll.exception.NotFoundException;
+import unienroll.exception.UnauthorizedException;
+import unienroll.repository.MemberRepository;
 
 import java.util.List;
 
 public class MemberService {
-    private FileMemberRepository repository = FileMemberRepository.getInstance();
+    private final MemberRepository repository;
 
-    public MemberService(FileMemberRepository repository){
+    public MemberService(MemberRepository repository){
         this.repository = repository;
     }
 
     public void registerMember(Admin admin){
         if(repository.existsByEmail(admin.getEmail())){
-            System.out.println("Email already exists");
-            return;
+            throw new DuplicateResourceException("Email already exists: " + admin.getEmail());
         }
-        System.out.println("Registering new admin");
         repository.add(admin);
     }
 
     public void registerMember(Student student){
         if(repository.existsByEmail(student.getEmail())){
-            System.out.println("Email already exists");
-            return;
+            throw new DuplicateResourceException("Email already exists: " + student.getEmail());
         }
-        System.out.println("Registering Student");
         repository.add(student);
     }
 
     public Member login(String email, String password){
         Member member = repository.findByEmail(email);
-        if(member == null) return null;
-        if(!member.isValidPassword(password)) return null;
-        System.out.println("Login successful");
+        if(member == null) {
+            throw new NotFoundException("Member not found with email: " + email);
+        }
+        if(!member.isValidPassword(password)) {
+            throw new UnauthorizedException("Invalid password");
+        }
         return member;
     }
 
@@ -61,14 +63,16 @@ public class MemberService {
         if (user != null) {
             user.setVerified(true);
             repository.update(user);
-            System.out.println(user.getName() + " approved!");
-
+        } else {
+            throw new NotFoundException("Member not found with ID: " + memberId);
         }
     }
 
     public void deleteMember(String memberId) {
+        if (!repository.existsById(memberId)) {
+            throw new NotFoundException("Member not found with ID: " + memberId);
+        }
         repository.deleteById(memberId);
-        System.out.println("Member deleted: " + memberId);
     }
 
     public List<Member> pendingMembers(){

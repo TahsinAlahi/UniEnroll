@@ -3,7 +3,6 @@ package unienroll.infrastructure.file;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import unienroll.Main;
 import unienroll.domain.Member;
 import unienroll.repository.MemberRepository;
 
@@ -16,27 +15,33 @@ import java.util.Map;
 public class FileMemberRepository implements MemberRepository {
     ObjectMapper mapper = new ObjectMapper();
     private final List<Member> members;
-    //    Using map for faster lookup O(1)
+    // Using map for faster lookup O(1)
     private final Map<String, Member> membersByEmail;
     private final Map<String, Member> membersById;
-    //    I could've also used getClass().getResource("/data/members.json").getFile()
-    private final File file = new File("src/main/resources/data/members.json");
+    private final File file = new File("data/members.json");
 
     //    I will be using singleton pattern,
     //    to maintain a single instance throughout the entire Project
     private static FileMemberRepository instance;
 
-    private FileMemberRepository() throws Exception {
+    private FileMemberRepository() {
         membersByEmail = new HashMap<>();
         membersById = new HashMap<>();
-        System.out.println(file.getAbsolutePath());
-        //    It's official I hate java more than my life 😭
-        members = mapper.readValue(
-                // TODO: dig more into getResourceAsStream and typeReference later
-                Main.class.getResourceAsStream("/data/members.json"),
-                new TypeReference<>() {
+        
+        List<Member> loadedMembers = new java.util.ArrayList<>();
+        try {
+            if (file.exists()) {
+                loadedMembers = mapper.readValue(file, new TypeReference<>() {});
+            } else {
+                File parent = file.getParentFile();
+                if (parent != null && !parent.exists()) {
+                    parent.mkdirs();
                 }
-        );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        members = loadedMembers;
 
         indexMembers();
     }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import java.util.UUID;
+import unienroll.exception.ValidationException;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "role", visible = true)
 @JsonSubTypes({
@@ -11,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = Student.class, name = "STUDENT")
 })
 public class Member {
-    private static long counter = 100L;
 
     //    TODO: Make it thread safe
     private final String id;
@@ -27,7 +28,7 @@ public class Member {
            String password,
            Roles role
     ) {
-        this.id = "USR-" + counter++;
+        this.id = UUID.randomUUID().toString();
         this.email = email;
         setName(name);
         setPassword(password);
@@ -43,7 +44,7 @@ public class Member {
             @JsonProperty("role") Roles role,
             @JsonProperty("isVerified") boolean isVerified
     ) {
-        this.id = id != null ? id : "USR-" + counter++;
+        this.id = id != null ? id : UUID.randomUUID().toString();
         this.email = email;
         setName(name);
         setPassword(password);
@@ -59,8 +60,10 @@ public class Member {
         return id;
     }
 
-    //TODO: setup validation & format
     public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new ValidationException("Name cannot be empty");
+        }
         this.name = name;
     }
 
@@ -73,6 +76,9 @@ public class Member {
     }
 
     public void setPassword(String password) {
+        if (password == null || password.trim().isEmpty()) {
+            throw new ValidationException("Password cannot be empty");
+        }
         this.password = password;
     }
 

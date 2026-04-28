@@ -1,0 +1,15 @@
+[ {
+  "courseId" : "c60f3d94-c124-4496-8692-7651a3563787",
+  "title" : "Java 101",
+  "description" : "Intro to Java Programming",
+  "instructorId" : "5d33cfca-6d72-49e6-adbc-144a4bb735e1",
+  "capacity" : 30,
+  "enrolledStudentsId" : [ "9df4af03-c243-42e0-9957-b52d64fb4961" ]
+}, {
+  "courseId" : "8a53e6bb-03f3-41de-a3c1-9131e99f97b7",
+  "title" : "Java 101",
+  "description" : "Intro to Java Programming",
+  "instructorId" : "5d33cfca-6d72-49e6-adbc-144a4bb735e1",
+  "capacity" : 30,
+  "enrolledStudentsId" : [ "9df4af03-c243-42e0-9957-b52d64fb4961" ]
+} ]

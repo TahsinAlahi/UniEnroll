@@ -2,7 +2,6 @@ package unienroll.infrastructure.file;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import unienroll.Main;
 import unienroll.domain.Course;
 import unienroll.repository.CourseRepository;
 
@@ -15,14 +14,25 @@ public class FileCourseRepository implements CourseRepository {
     ObjectMapper mapper = new ObjectMapper();
     private final List<Course> courses;
     private final Map<String, Course> coursesById;
-    File file = new File("src/main/resources/data/courses.json");
+    private final File file = new File("data/courses.json");
 
     private static FileCourseRepository instance;
 
-    private FileCourseRepository() throws Exception {
-        courses = mapper.readValue(Main.class.getResourceAsStream("/data/courses.json"),
-                new TypeReference<>() {
-                });
+    private FileCourseRepository() {
+        List<Course> loadedCourses = new java.util.ArrayList<>();
+        try {
+            if (file.exists()) {
+                loadedCourses = mapper.readValue(file, new TypeReference<>() {});
+            } else {
+                File parent = file.getParentFile();
+                if (parent != null && !parent.exists()) {
+                    parent.mkdirs();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        courses = loadedCourses;
         coursesById = new HashMap<>();
         for (Course c : courses) {
             coursesById.put(c.getCourseId(), c);
