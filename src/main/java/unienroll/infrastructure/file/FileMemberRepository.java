@@ -69,7 +69,7 @@ public class FileMemberRepository implements MemberRepository {
 
     @Override
     public Member findByEmail(String email) {
-        return membersByEmail.get(email);
+        return membersByEmail.get(email.toLowerCase());
     }
 
     @Override
@@ -91,7 +91,7 @@ public class FileMemberRepository implements MemberRepository {
 
     @Override
     public boolean existsByEmail(String email) {
-        return membersByEmail.containsKey(email);
+        return membersByEmail.containsKey(email.toLowerCase());
     }
 
     @Override
@@ -102,7 +102,7 @@ public class FileMemberRepository implements MemberRepository {
     @Override
     public Member add(Member entity) {
         members.add(entity);
-        membersByEmail.put(entity.getEmail(), entity);
+        membersByEmail.put(entity.getEmail().toLowerCase(), entity);
         membersById.put(entity.getId(), entity);
         save();
         return entity;

@@ -11,6 +11,6 @@
   "email" : "tp@gmail.com",
   "password" : "SupermanFlies",
   "isVerified" : true,
-  "enrolledCoursesId" : [ "c60f3d94-c124-4496-8692-7651a3563787", "8a53e6bb-03f3-41de-a3c1-9131e99f97b7" ],
+  "enrolledCoursesId" : [ "c60f3d94-c124-4496-8692-7651a3563787", "8a53e6bb-03f3-41de-a3c1-9131e99f97b7", "385091ff-a5cb-4867-88b3-e46f7f7b7c2e" ],
   "role" : "STUDENT"
 } ]
