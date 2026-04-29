@@ -132,7 +132,7 @@ public class Course_selection_controller implements Initializable {
     }
 
     @FXML
-    private void confirmSelection() {
+    private void confirmSelection(ActionEvent event) {
         ObservableList<Course> selectedCourses = FXCollections.observableArrayList();
         for (Course c : coreTable.getItems()) {
             if (c.isSelected()) {
@@ -152,8 +152,7 @@ public class Course_selection_controller implements Initializable {
 
         try {
             courseController.enrollInCourses(selectedCourses);
-            declaration.setText("✅ Courses confirmed successfully!");
-            declaration.setStyle("-fx-text-fill: green;");
+            loadScene(event, "Receipt.fxml", "Final Receipt", null);
         } catch (Exception e) {
             declaration.setText("❌ Enrollment failed: " + e.getMessage());
             declaration.setStyle("-fx-text-fill: red;");
@@ -172,8 +171,8 @@ public class Course_selection_controller implements Initializable {
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setWidth(600);
-        stage.setHeight(450);
+        stage.sizeToScene();
+        stage.centerOnScreen();
         stage.setTitle(title);
         stage.setResizable(false);
         stage.getIcons().clear();

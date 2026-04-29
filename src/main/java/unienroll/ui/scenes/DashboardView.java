@@ -84,7 +84,7 @@ public class DashboardView {
         scrollPane.setStyle("-fx-background-color: transparent;");
         root.setCenter(scrollPane);
 
-        return new Scene(root, 800, 600);
+        return new Scene(root, 1000, 700);
     }
 
     private void buildAdminDashboard(VBox content) {
@@ -302,8 +302,12 @@ public class DashboardView {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
+        Button enrollmentFlowBtn = new Button("Go to Enrollment Flow");
+        enrollmentFlowBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 10px 20px;");
+        enrollmentFlowBtn.setOnAction(e -> navigationHandler.showStudentInfo());
+
         content.getChildren().addAll(statusBox, availableLabel, availableTableView, enrollButton, new Separator(), enrolledLabel,
-                enrolledTableView);
+                enrolledTableView, enrollmentFlowBtn);
     }
 
     private void showAlert(Alert.AlertType type, String title, String contentText) {

@@ -19,10 +19,11 @@ public class AuthController {
         this.sessionState = SessionState.getInstance();
     }
 
-    public void login(String email, String password) throws Exception {
+    public Member login(String email, String password) throws Exception {
         try {
             Member member = memberService.login(email, password);
             sessionState.setLoggedInMember(member);
+            return member;
         } catch (NotFoundException | UnauthorizedException e) {
             throw new Exception(e.getMessage());
         }

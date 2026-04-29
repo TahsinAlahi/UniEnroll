@@ -97,12 +97,16 @@ public class Data_input_Controller {
 
     try {
         // Use our backend AuthController
-        authController.login(email, id); // Assuming id is used as password or similar for this UI
+        unienroll.domain.Member member = authController.login(email, id); // Assuming id is used as password or similar for this UI
         
         label1.setText("Login Successful!");
         
-        // Navigation logic: use MainApp's showDashboard to handle role-based redirection
-        navigationHandler.showDashboard();
+        // Navigation logic: Students start the enrollment flow, others go to Dashboard
+        if (member.getRole() == unienroll.domain.Roles.STUDENT) {
+            navigationHandler.showStudentInfo();
+        } else {
+            navigationHandler.showDashboard();
+        }
 
     } catch (Exception e) {
         label4.setText(e.getMessage());

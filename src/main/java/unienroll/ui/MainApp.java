@@ -62,6 +62,8 @@ public class MainApp extends Application implements NavigationHandler {
                 return new unienroll.example.Major_selection_controller();
             } else if (type == unienroll.example.Course_selection_controller.class) {
                 return new unienroll.example.Course_selection_controller(courseController);
+            } else if (type == unienroll.example.ReceiptController.class) {
+                return new unienroll.example.ReceiptController(courseService, instance);
             }
             try {
                 return type.getDeclaredConstructor().newInstance();
@@ -85,24 +87,22 @@ public class MainApp extends Application implements NavigationHandler {
 
     @Override
     public void showDashboard() {
-        unienroll.domain.Member member = SessionState.getInstance().getLoggedInMember();
-        if (member != null && member.getRole() == unienroll.domain.Roles.STUDENT) {
-            showStudentInfo();
-        } else {
-            DashboardView dashboardView = new DashboardView(dashboardController, authController, this);
-            primaryStage.setScene(dashboardView.getScene());
-        }
+        DashboardView dashboardView = new DashboardView(dashboardController, authController, this);
+        primaryStage.setScene(dashboardView.getScene());
+        primaryStage.setResizable(true);
+        primaryStage.sizeToScene();
+        primaryStage.centerOnScreen();
     }
 
     public void showStudentInfo() {
-        loadTeamFXML("Student_info.fxml", "Student Information", 800, 450);
+        loadTeamFXML("Student_info.fxml", "Student Information");
     }
 
     public void showTeamUI() {
-        loadTeamFXML("Data_input.fxml", "Student Enrollment", 800, 450);
+        loadTeamFXML("Data_input.fxml", "Student Enrollment");
     }
 
-    private void loadTeamFXML(String fxml, String title, double width, double height) {
+    private void loadTeamFXML(String fxml, String title) {
         try {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
                 unienroll.example.Main.class.getResource(fxml)
@@ -111,8 +111,9 @@ public class MainApp extends Application implements NavigationHandler {
             javafx.scene.Parent root = loader.load();
             javafx.scene.Scene scene = new javafx.scene.Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setWidth(width);
-            primaryStage.setHeight(height);
+            primaryStage.setResizable(false);
+            primaryStage.sizeToScene();
+            primaryStage.centerOnScreen();
             primaryStage.setTitle(title);
         } catch (Exception e) {
             e.printStackTrace();
