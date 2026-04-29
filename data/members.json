@@ -11,7 +11,7 @@
   "email" : "tp@gmail.com",
   "password" : "SupermanFlies",
   "isVerified" : true,
-  "enrolledCoursesId" : [ "c60f3d94-c124-4496-8692-7651a3563787", "8a53e6bb-03f3-41de-a3c1-9131e99f97b7", "385091ff-a5cb-4867-88b3-e46f7f7b7c2e", "00000000-0000-0000-0000-000000000001", "00000000-0000-0000-0000-000000000004", "00000000-0000-0000-0000-000000000006", "00000000-0000-0000-0000-000000000007" ],
+  "enrolledCoursesId" : [ "00000000-0000-0000-0000-000000000005", "00000000-0000-0000-0000-000000000018", "00000000-0000-0000-0000-000000000019", "00000000-0000-0000-0000-000000000020" ],
   "major" : "",
   "cgpa" : 0.0,
   "role" : "STUDENT"
@@ -21,6 +21,23 @@
   "email" : "jack@northsouth.edu",
   "password" : "12345678",
   "isVerified" : false,
+  "enrolledCoursesId" : [ ],
+  "major" : "",
+  "cgpa" : 0.0,
+  "role" : "STUDENT"
+}, {
+  "id" : "e9dc1601-805b-4094-9682-ea1f28487c45",
+  "name" : "System Admin",
+  "email" : "admin@northsouth.edu",
+  "password" : "admin123",
+  "isVerified" : true,
+  "role" : "ADMIN"
+}, {
+  "id" : "78bd6d6a-80fa-47a8-a71c-86ddef6eccaa",
+  "name" : "Tahsin Alahi",
+  "email" : "student@northsouth.edu",
+  "password" : "pass123",
+  "isVerified" : true,
   "enrolledCoursesId" : [ ],
   "major" : "",
   "cgpa" : 0.0,

@@ -1,5 +1,5 @@
 
-package unienroll.example;
+package unienroll.ui;
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,17 +35,10 @@ public class Major_selection_controller implements Initializable {
     @FXML
     private Button nextButton1;
     
-    private final unienroll.ui.SessionState sessionState;
-
-    public Major_selection_controller() {
-        this.sessionState = unienroll.ui.SessionState.getInstance();
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-        String dept = sessionState.getSelectedDepartment();
-        if (dept == null) dept = ""; // fallback
+        String dept = Department_selection_controller.selectedDept;
         
         switch(dept) {
             case "ECE":
@@ -95,7 +88,6 @@ public class Major_selection_controller implements Initializable {
     public void getMajor(ActionEvent event){
        
         selectedMajor = major_choicebox.getValue();
-        sessionState.setSelectedMajor(selectedMajor);
         
         if (selectedMajor == null) 
         {   
@@ -114,40 +106,53 @@ public class Major_selection_controller implements Initializable {
     private void deptScene(ActionEvent event) throws IOException{
            //to make everythinng null: 
            
-           sessionState.setSelectedDepartment(null);
-           sessionState.setSelectedMajor(null);
+           Department_selection_controller.selectedDept = null;
+           selectedMajor = null;
            
-           loadScene(event, "Department_selection.fxml", "Department Selection", "department_icon.png");
+           //Department_selection_controller.nextButton.setDisable(true);
+           
+    
+           Parent root2 = FXMLLoader.load(getClass().getResource("Department_selection.fxml"));
+           Stage stage2 = (Stage)((Node)event.getSource()).getScene().getWindow();
+           
+           Scene scene2= new Scene(root2);
+           stage2.setScene(scene2);
+           
+           stage2.setWidth(600);   
+           stage2.setHeight(450); 
+           
+           stage2.setTitle("Department Selection");
+           
+           stage2.getIcons().clear();
+           stage2.getIcons().add(new Image(getClass().getResourceAsStream("department_icon.png")));
+           
+           stage2.setResizable(true);
+           
+           stage2.show();
     }
     
     //clicking on next
     
     @FXML
     private void CourseScene(ActionEvent event) throws IOException {
-        loadScene(event, "Course_selection.fxml", "Course Selection", null);
-    }
 
-    private void loadScene(ActionEvent event, String fxml, String title, String icon) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-        loader.setControllerFactory(unienroll.ui.MainApp.getControllerFactory());
-        Parent root = loader.load();
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle(title);
-        // Custom dimensions for Course Selection as per original code
-        if (fxml.equals("Course_selection.fxml")) {
-            stage.setWidth(929);
-            stage.setHeight(667);
-        } else {
-            stage.setWidth(600);
-            stage.setHeight(450);
-        }
-        stage.setResizable(false);
-        stage.getIcons().clear();
-        if (icon != null) stage.getIcons().add(new Image(getClass().getResourceAsStream(icon)));
-        stage.show();
+          Parent root4 = FXMLLoader.load(getClass().getResource("Course_selection.fxml"));
+          Stage stage4 = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+          Scene scene4 = new Scene(root4);
+          stage4.setScene(scene4);
+          
+          stage4.setWidth(929);   
+          stage4.setHeight(667); 
+           
+         
+          stage4.setTitle("Course Selection");
+          
+          stage4.setResizable(true);
+          
+          stage4.show();
     }
+      
 }
 
 

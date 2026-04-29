@@ -1,5 +1,5 @@
 
-package unienroll.example;
+package unienroll.ui;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,26 +36,12 @@ public class Department_selection_controller implements Initializable{
     private String[] departments = {"ECE", "BMD", "BBA", "Architecture"};
     
     public static String selectedDept;
-
-    private final unienroll.ui.SessionState sessionState;
-
-    public Department_selection_controller() {
-        this.sessionState = unienroll.ui.SessionState.getInstance();
-    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
         nextButton.setDisable(true);
         
-        unienroll.domain.Member member = sessionState.getLoggedInMember();
-        if (member != null && !member.getIsVerified()) {
-            dept.setText("❌ You are not verified by an admin yet. Please wait for verification.");
-            dept.setStyle("-fx-text-fill: red;");
-            dept_choicebox.setDisable(true);
-            return;
-        }
-
         dept_choicebox.getItems().addAll(departments);
         
         dept_choicebox.setOnAction(this::getDepartments); //:: method ref operator
@@ -66,7 +52,6 @@ public class Department_selection_controller implements Initializable{
     public void getDepartments(ActionEvent event){
          
         selectedDept = dept_choicebox.getValue();
-        sessionState.setSelectedDepartment(selectedDept);
         
         if (selectedDept == null) 
         {   
@@ -83,29 +68,58 @@ public class Department_selection_controller implements Initializable{
      //next event
     @FXML
     private void MajorScene(ActionEvent event) throws IOException {
-        loadScene(event, "Major_selection.fxml", "Major Selection", "major.png");
-    }
+           
+           /*if (selectedDept == null || dept_choicebox.getValue() == null){
+               
+           dept.setText("Please select a department first!");
+           nextButton.setDisable(true);
+           return;
+           
+            }*/
+           
+           Parent root3 = FXMLLoader.load(getClass().getResource("Major_selection.fxml"));
+           Stage stage3 = (Stage)((Node)event.getSource()).getScene().getWindow();
+           
+           Scene scene3= new Scene(root3);
+           stage3.setScene(scene3);
+           
+           stage3.setWidth(600);   
+           stage3.setHeight(450); 
+           
+           stage3.setTitle("Major Selection");
+           
+           stage3.getIcons().clear();
+           stage3.getIcons().add(new Image(getClass().getResourceAsStream("major.png")));
+           
+           stage3.setResizable(true);
+           
+           stage3.show();
+            
+        }
     
     //going back event
     @FXML
     private void StudentInfoScene(ActionEvent event) throws IOException {
-        loadScene(event, "Student_info.fxml", "Student Information", "department_icon.png");
-    }
-
-    private void loadScene(ActionEvent event, String fxml, String title, String icon) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-        loader.setControllerFactory(unienroll.ui.MainApp.getControllerFactory());
-        Parent root = loader.load();
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setWidth(600);
-        stage.setHeight(450);
-        stage.setTitle(title);
-        stage.setResizable(false);
-        stage.getIcons().clear();
-        if (icon != null) stage.getIcons().add(new Image(getClass().getResourceAsStream(icon)));
-        stage.show();
+           
+           Parent root6 = FXMLLoader.load(getClass().getResource("Student_info.fxml"));
+           Stage stage6 = (Stage)((Node)event.getSource()).getScene().getWindow();
+           
+           Scene scene6= new Scene(root6);
+           stage6.setScene(scene6);
+           
+           stage6.setWidth(600);   
+           stage6.setHeight(450); 
+           
+           stage6.setTitle("Student Information");
+           
+           stage6.getIcons().clear(); //clearing previous image
+           stage6.getIcons().add(new Image(getClass().getResourceAsStream("department_icon.png")));
+           
+           stage6.setResizable(true);
+           
+           stage6.show();
+           
+          
     }
     
 }

@@ -1,5 +1,5 @@
 
-package unienroll.example;
+package unienroll.ui;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 
 public class Course {
     
+    private String id;
     private String code;
     private String title;
     private double credits;
@@ -14,13 +15,18 @@ public class Course {
     
     private BooleanProperty selected = new SimpleBooleanProperty(false); //*
 
-    public Course(String code, String title, double credits, double fee, boolean select) {
+    public Course(String id, String code, String title, double credits, double fee, boolean select) {
+        this.id = id;
         this.code = code;
         this.title = title;
         this.credits = credits;
         this.fee = fee;
         
         this.selected.set(select);
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getCode() {
