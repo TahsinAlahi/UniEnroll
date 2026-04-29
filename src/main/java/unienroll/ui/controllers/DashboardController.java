@@ -48,7 +48,7 @@ public class DashboardController {
             throw new Exception("You must be logged in and verified to create a course.");
         }
         try {
-            courseService.createCourse(title, description, currentUser.getId(), capacity);
+            courseService.createCourse(title, description, currentUser.getId(), capacity, 3.0, 500.0);
         } catch (NotFoundException | ValidationException e) {
             throw new Exception(e.getMessage());
         }

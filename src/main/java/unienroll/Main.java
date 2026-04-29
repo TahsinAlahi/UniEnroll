@@ -66,7 +66,7 @@ public class Main {
 
             // 5. Create a Course
             System.out.println("\n--- Creating Course ---");
-            Course course = courseService.createCourse("Java 101", "Intro to Java Programming", admin.getId(), 30);
+            Course course = courseService.createCourse("Java 101", "Intro to Java Programming", admin.getId(), 30, 3.0, 500.0);
             System.out.println("Course created: " + course.getTitle() + " (ID: " + course.getCourseId() + ")");
 
             // 6. Student Enrolls in Course

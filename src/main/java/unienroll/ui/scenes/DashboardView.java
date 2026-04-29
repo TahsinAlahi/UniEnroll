@@ -80,7 +80,7 @@ public class DashboardView {
         }
 
         ScrollPane scrollPane = new ScrollPane(content);
-        scrollPane.setFitToWidth(true);
+        // scrollPane.setFitToWidth(true);
         scrollPane.setStyle("-fx-background-color: transparent;");
         root.setCenter(scrollPane);
 

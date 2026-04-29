@@ -22,17 +22,13 @@ public class CourseService {
         this.registrationWindowService = registrationWindowService;
     }
 
-    public Course createCourse(String title, String description, String instructorId, int capacity) {
+    public Course createCourse(String title, String description, String instructorId, int capacity, double credits, double fee) {
         Member instructor = memberRepository.findById(instructorId);
         if (instructor == null) {
             throw new NotFoundException("Instructor not found with ID: " + instructorId);
         }
-        if (instructor.getRole() != Roles.ADMIN) {
-            // Alternatively, create an Instructor role. For now, assuming Admins are instructors or anyone verified.
-            // Let's just ensure they exist. The user prompt mentioned only Student and Admin roles.
-        }
 
-        Course course = new Course(title, description, instructorId, capacity);
+        Course course = new Course(title, description, instructorId, capacity, credits, fee);
         courseRepository.add(course);
         return course;
     }
@@ -95,5 +91,16 @@ public class CourseService {
 
     public List<Course> listAllCourses() {
         return courseRepository.findAll();
+    }
+
+    public double calculateTotalCredits(Student student) {
+        double total = 0;
+        for (String courseId : student.getEnrolledCoursesId()) {
+            Course course = courseRepository.findById(courseId);
+            if (course != null) {
+                total += course.getCredits();
+            }
+        }
+        return total;
     }
 }

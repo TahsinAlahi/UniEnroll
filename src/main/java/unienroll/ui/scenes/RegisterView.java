@@ -58,6 +58,10 @@ public class RegisterView {
 
         registerButton.setOnAction(e -> {
             try {
+                // TODO: NSU email verification
+                if (!emailField.getText().endsWith("@northsouth.edu")) {
+                    throw new Exception("Please use NSU email to register.");
+                }
                 if ("Student".equals(roleCombo.getValue())) {
                     authController.registerStudent(nameField.getText(), emailField.getText(), passwordField.getText());
                 } else {

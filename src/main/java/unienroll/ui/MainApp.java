@@ -17,14 +17,17 @@ import unienroll.ui.scenes.RegisterView;
 
 public class MainApp extends Application implements NavigationHandler {
 
+    private static MainApp instance;
     private Stage primaryStage;
-    
-    // Dependencies
-    private AuthController authController;
-    private DashboardController dashboardController;
+    private static AuthController authController;
+    private static DashboardController dashboardController;
+    private static unienroll.ui.controllers.CourseController courseController;
+    private static unienroll.application.CourseService courseService;
+    private static unienroll.application.MemberService memberService;
 
     @Override
     public void start(Stage primaryStage) {
+        instance = this;
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("UniEnroll Course Management System");
 
@@ -34,21 +37,44 @@ public class MainApp extends Application implements NavigationHandler {
         FileRegistrationWindowRepository windowRepo = FileRegistrationWindowRepository.getInstance();
 
         RegistrationWindowService windowService = new RegistrationWindowService(windowRepo);
-        MemberService memberService = new MemberService(memberRepo);
-        CourseService courseService = new CourseService(courseRepo, memberRepo, windowService);
+        memberService = new MemberService(memberRepo);
+        courseService = new unienroll.application.CourseService(courseRepo, memberRepo, windowService);
 
-        this.authController = new AuthController(memberService);
-        this.dashboardController = new DashboardController(memberService, courseService, windowService);
+        authController = new AuthController(memberService);
+        dashboardController = new DashboardController(memberService, courseService, windowService);
+        courseController = new unienroll.ui.controllers.CourseController(courseService);
 
         // Show default scene
         showLogin();
         this.primaryStage.show();
     }
 
+    public static javafx.util.Callback<Class<?>, Object> getControllerFactory() {
+        return type -> {
+            if (type == unienroll.example.Data_input_Controller.class) {
+                return new unienroll.example.Data_input_Controller(authController, instance);
+            } else if (type == unienroll.example.Student_info_controller.class) {
+                return new unienroll.example.Student_info_controller(memberService, courseService);
+            }
+ else if (type == unienroll.example.Department_selection_controller.class) {
+                return new unienroll.example.Department_selection_controller();
+            } else if (type == unienroll.example.Major_selection_controller.class) {
+                return new unienroll.example.Major_selection_controller();
+            } else if (type == unienroll.example.Course_selection_controller.class) {
+                return new unienroll.example.Course_selection_controller(courseController);
+            }
+            try {
+                return type.getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        };
+    }
+
     @Override
     public void showLogin() {
-        LoginView loginView = new LoginView(authController, this);
-        primaryStage.setScene(loginView.getScene());
+        showTeamUI();
     }
 
     @Override
@@ -59,8 +85,38 @@ public class MainApp extends Application implements NavigationHandler {
 
     @Override
     public void showDashboard() {
-        DashboardView dashboardView = new DashboardView(dashboardController, authController, this);
-        primaryStage.setScene(dashboardView.getScene());
+        unienroll.domain.Member member = SessionState.getInstance().getLoggedInMember();
+        if (member != null && member.getRole() == unienroll.domain.Roles.STUDENT) {
+            showStudentInfo();
+        } else {
+            DashboardView dashboardView = new DashboardView(dashboardController, authController, this);
+            primaryStage.setScene(dashboardView.getScene());
+        }
+    }
+
+    public void showStudentInfo() {
+        loadTeamFXML("Student_info.fxml", "Student Information", 800, 450);
+    }
+
+    public void showTeamUI() {
+        loadTeamFXML("Data_input.fxml", "Student Enrollment", 800, 450);
+    }
+
+    private void loadTeamFXML(String fxml, String title, double width, double height) {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                unienroll.example.Main.class.getResource(fxml)
+            );
+            loader.setControllerFactory(getControllerFactory());
+            javafx.scene.Parent root = loader.load();
+            javafx.scene.Scene scene = new javafx.scene.Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.setWidth(width);
+            primaryStage.setHeight(height);
+            primaryStage.setTitle(title);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

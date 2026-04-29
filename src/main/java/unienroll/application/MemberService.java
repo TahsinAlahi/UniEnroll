@@ -50,6 +50,10 @@ public class MemberService {
         repository.update(member);
     }
 
+    public void updateMember(Member member) {
+        repository.update(member);
+    }
+
     public Member findByEmail(String email){
         return repository.findByEmail(email);
     }

@@ -12,17 +12,19 @@ public class Course {
     private final String courseId;
     private String title;
     private String description;
-    //    TODO: Make instructorId a reference to the instructor
     private String instructorId;
     private List<String> enrolledStudentsId;
     private int capacity;
+    private double credits;
+    private double fee;
 
-    // default constructor
-    public Course(String title, String description, String instructorId, int capacity) {
+    public Course(String title, String description, String instructorId, int capacity, double credits, double fee) {
         setTitle(title);
         setDescription(description);
         setInstructorId(instructorId);
         setCapacity(capacity);
+        this.credits = credits;
+        this.fee = fee;
         this.enrolledStudentsId = new ArrayList<>();
         this.courseId = UUID.randomUUID().toString();
     }
@@ -34,12 +36,16 @@ public class Course {
             @JsonProperty("description") String description,
             @JsonProperty("instructorId") String instructorId,
             @JsonProperty("capacity") int capacity,
-            @JsonProperty("enrolledStudentsId") List<String> enrolledStudentsId
+            @JsonProperty("enrolledStudentsId") List<String> enrolledStudentsId,
+            @JsonProperty("credits") double credits,
+            @JsonProperty("fee") double fee
     ) {
         setTitle(title);
         setDescription(description);
         setInstructorId(instructorId);
         setCapacity(capacity);
+        this.credits = credits;
+        this.fee = fee;
         this.enrolledStudentsId = enrolledStudentsId != null ? enrolledStudentsId : new ArrayList<>();
         this.courseId = courseId != null ? courseId : UUID.randomUUID().toString();
     }
@@ -108,6 +114,22 @@ public class Course {
 
     public int availableSeats() {
         return capacity - enrolledStudentsId.size();
+    }
+
+    public double getCredits() {
+        return credits;
+    }
+
+    public void setCredits(double credits) {
+        this.credits = credits;
+    }
+
+    public double getFee() {
+        return fee;
+    }
+
+    public void setFee(double fee) {
+        this.fee = fee;
     }
 
     @Override
