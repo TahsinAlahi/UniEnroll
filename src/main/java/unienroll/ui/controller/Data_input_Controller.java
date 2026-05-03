@@ -1,5 +1,5 @@
 
-package unienroll.ui;
+package unienroll.ui.controller;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -89,14 +89,14 @@ public class Data_input_Controller {
             label1.setText("Login Successful!");
 
             // Navigate to next scene
-            Parent root6 = FXMLLoader.load(getClass().getResource("Student_info.fxml"));
+            Parent root6 = FXMLLoader.load(getClass().getResource("/unienroll/ui/fxml/Student_info.fxml"));
             Stage stage6 = (Stage)((Node)event.getSource()).getScene().getWindow();
             
             Scene scene6= new Scene(root6);
             stage6.setScene(scene6);
             
-            stage6.setWidth(600);   
-            stage6.setHeight(450); 
+            stage6.setWidth(929);   
+            stage6.setHeight(700); 
             stage6.setTitle("Student Information");
             stage6.getIcons().clear();
             stage6.getIcons().add(new Image(getClass().getResourceAsStream("department_icon.png")));

@@ -1,5 +1,5 @@
 
-package unienroll.ui;
+package unienroll.ui.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -77,21 +77,21 @@ public class Department_selection_controller implements Initializable{
            
             }*/
            
-           Parent root3 = FXMLLoader.load(getClass().getResource("Major_selection.fxml"));
+           Parent root3 = FXMLLoader.load(getClass().getResource("/unienroll/ui/fxml/Major_selection.fxml"));
            Stage stage3 = (Stage)((Node)event.getSource()).getScene().getWindow();
            
            Scene scene3= new Scene(root3);
            stage3.setScene(scene3);
            
-           stage3.setWidth(600);   
-           stage3.setHeight(450); 
+           stage3.setWidth(929);   
+           stage3.setHeight(700); 
            
            stage3.setTitle("Major Selection");
            
            stage3.getIcons().clear();
            stage3.getIcons().add(new Image(getClass().getResourceAsStream("major.png")));
            
-           stage3.setResizable(true);
+           stage3.setResizable(false);
            
            stage3.show();
             
@@ -101,21 +101,21 @@ public class Department_selection_controller implements Initializable{
     @FXML
     private void StudentInfoScene(ActionEvent event) throws IOException {
            
-           Parent root6 = FXMLLoader.load(getClass().getResource("Student_info.fxml"));
+           Parent root6 = FXMLLoader.load(getClass().getResource("/unienroll/ui/fxml/Student_info.fxml"));
            Stage stage6 = (Stage)((Node)event.getSource()).getScene().getWindow();
            
            Scene scene6= new Scene(root6);
            stage6.setScene(scene6);
            
-           stage6.setWidth(600);   
-           stage6.setHeight(450); 
+           stage6.setWidth(929);   
+           stage6.setHeight(700); 
            
            stage6.setTitle("Student Information");
            
            stage6.getIcons().clear(); //clearing previous image
            stage6.getIcons().add(new Image(getClass().getResourceAsStream("department_icon.png")));
            
-           stage6.setResizable(true);
+           stage6.setResizable(false);
            
            stage6.show();
            

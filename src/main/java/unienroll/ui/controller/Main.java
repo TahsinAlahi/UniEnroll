@@ -1,12 +1,6 @@
-package unienroll.ui;
 
+package unienroll.ui.controller;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
 import unienroll.application.CourseService;
 import unienroll.application.MemberService;
 import unienroll.application.RegistrationWindowService;
@@ -15,8 +9,15 @@ import unienroll.domain.Student;
 import unienroll.infrastructure.file.FileCourseRepository;
 import unienroll.infrastructure.file.FileMemberRepository;
 import unienroll.infrastructure.file.FileRegistrationWindowRepository;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.time.LocalDateTime;
+import static javafx.application.Application.launch;
 
 
 public class Main extends Application {
@@ -42,11 +43,11 @@ public class Main extends Application {
             // Set up Demo Data
             setupDemoData(memberService, courseService, windowService);
            
-            Parent root1 = FXMLLoader.load(getClass().getResource("Data_input.fxml"));
+            Parent root1 = FXMLLoader.load(getClass().getResource("/unienroll/ui/fxml/Data_input.fxml"));
             Scene scene1 = new Scene(root1);
         
-            stage.setWidth(800);   
-            stage.setHeight(450); 
+            stage.setWidth(929);   
+            stage.setHeight(700); 
            
             stage.setTitle("Student Login");
            
@@ -56,7 +57,8 @@ public class Main extends Application {
            
             stage.setScene(scene1);
             stage.show();
-        } catch(Exception e){
+        } 
+        catch(Exception e){
             e.printStackTrace();
         }
     }

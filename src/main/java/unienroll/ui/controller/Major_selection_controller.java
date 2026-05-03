@@ -1,5 +1,5 @@
 
-package unienroll.ui;
+package unienroll.ui.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -112,21 +112,21 @@ public class Major_selection_controller implements Initializable {
            //Department_selection_controller.nextButton.setDisable(true);
            
     
-           Parent root2 = FXMLLoader.load(getClass().getResource("Department_selection.fxml"));
+           Parent root2 = FXMLLoader.load(getClass().getResource("/unienroll/ui/fxml/Department_selection.fxml"));
            Stage stage2 = (Stage)((Node)event.getSource()).getScene().getWindow();
            
            Scene scene2= new Scene(root2);
            stage2.setScene(scene2);
            
-           stage2.setWidth(600);   
-           stage2.setHeight(450); 
+           stage2.setWidth(929);   
+           stage2.setHeight(700); 
            
            stage2.setTitle("Department Selection");
            
            stage2.getIcons().clear();
            stage2.getIcons().add(new Image(getClass().getResourceAsStream("department_icon.png")));
            
-           stage2.setResizable(true);
+           stage2.setResizable(false);
            
            stage2.show();
     }
@@ -136,19 +136,19 @@ public class Major_selection_controller implements Initializable {
     @FXML
     private void CourseScene(ActionEvent event) throws IOException {
 
-          Parent root4 = FXMLLoader.load(getClass().getResource("Course_selection.fxml"));
+          Parent root4 = FXMLLoader.load(getClass().getResource("/unienroll/ui/fxml/Course_selection.fxml"));
           Stage stage4 = (Stage)((Node)event.getSource()).getScene().getWindow();
 
           Scene scene4 = new Scene(root4);
           stage4.setScene(scene4);
           
           stage4.setWidth(929);   
-          stage4.setHeight(667); 
+          stage4.setHeight(700); 
            
          
           stage4.setTitle("Course Selection");
           
-          stage4.setResizable(true);
+          stage4.setResizable(false);
           
           stage4.show();
     }

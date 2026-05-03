@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="667.0" prefWidth="929.0" style="-fx-background-color: #ADD8E6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unienroll.ui.controller.Course_selection_controller">
+   <children>
+      <TableView fx:id="coreTable" editable="true" layoutY="116.0" prefHeight="435.0" prefWidth="930.0">
+        <columns>
+            <TableColumn fx:id="selectColumn" prefWidth="65.60000914335251" text="Select" />
+          <TableColumn fx:id="codeColumn" prefWidth="131.19998168945312" text="Course Code" />
+          <TableColumn fx:id="titleColumn" minWidth="0.0" prefWidth="393.6000213623047" text="Course Title" />
+            <TableColumn fx:id="creditColumn" minWidth="0.0" prefWidth="172.7999267578125" text="Course Credit/Credits" />
+            <TableColumn fx:id="feeColumn" prefWidth="164.80002441406248" text="Course Fee" />
+        </columns>
+      </TableView>
+      <Button layoutX="35.0" layoutY="603.0" mnemonicParsing="false" onAction="#back" prefHeight="39.0" prefWidth="119.0" text="BACK">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="submit" layoutX="769.0" layoutY="603.0" mnemonicParsing="false" onAction="#confirmSelection" prefHeight="39.0" prefWidth="119.0" text="SUBMIT">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label fx:id="declaration" alignment="CENTER" contentDisplay="CENTER" layoutX="140.0" layoutY="21.0" prefHeight="18.0" prefWidth="673.0" text="SELECT YOUR COURSES">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label fx:id="totalCreditsLabel" layoutX="263.0" layoutY="565.0" prefHeight="39.0" prefWidth="119.0" text="Total Credit: 0" wrapText="true">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="totalFeeLabel" layoutX="560.0" layoutY="565.0" prefHeight="39.0" prefWidth="119.0" text="Total Fee: 0" wrapText="true">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="warningLabel" layoutY="54.0" prefHeight="18.0" prefWidth="930.0" />
+      <Label fx:id="warningLabel2" layoutY="86.0" prefHeight="18.0" prefWidth="935.0" />
+   </children>
+</AnchorPane>

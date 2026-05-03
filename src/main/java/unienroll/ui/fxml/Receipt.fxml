@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="667.0" prefWidth="929.0" style="-fx-background-color: #ADD8E6;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unienroll.ui.controller.Receipt_controller">
+
+    <children>
+
+        <Label alignment="CENTER" layoutX="-1.0" layoutY="83.0" prefHeight="47.0" prefWidth="930.0" style="-fx-background-color: #000080;" text="FINAL RECEIPT" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+
+        <TextArea fx:id="receiptArea" editable="false" layoutX="50.0" layoutY="166.0" prefHeight="388.0" prefWidth="836.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextArea>
+
+        <Label fx:id="totalCreditsLabel" layoutX="50.0" layoutY="380.0" />
+
+        <Label fx:id="totalFeeLabel" layoutX="300.0" layoutY="380.0" />
+      <Label alignment="CENTER" layoutY="24.0" prefHeight="47.0" prefWidth="930.0" style="-fx-background-color: #000080;" text="NORTH SOUTH UNIVERSITY " textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Button layoutX="770.0" layoutY="588.0" mnemonicParsing="false" onAction="#close" prefHeight="26.0" prefWidth="128.0" text="CLOSE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="backbutton" layoutX="21.0" layoutY="603.0" mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="128.0" text="BACK">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+
+    </children>
+</AnchorPane>
